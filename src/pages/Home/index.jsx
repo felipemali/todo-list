@@ -1,9 +1,9 @@
 import React, { useState, useEffect } from "react";
 import { Container, Paper } from "@mui/material";
-import Form from "./../Form";
-import Notes from "./../Notes";
+import Form from "../../components/Form";
+import Notes from "../../components/Notes";
 import MenuBookIcon from "@mui/icons-material/MenuBook";
-import Snackbar from "./../Snackbar";
+import Snackbar from "../../components/Snackbar";
 
 export default function Home() {
   const [todos, setTodos] = useState([]);
