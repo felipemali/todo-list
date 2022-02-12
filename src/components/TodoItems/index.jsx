@@ -4,8 +4,8 @@ import ListItemButton from "@mui/material/ListItemButton";
 import ListItemText from "@mui/material/ListItemText";
 import IconButton from "@mui/material/IconButton";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { Checkbox, Container, ListItemIcon, Paper } from "@mui/material";
-import EditTodoDialog from "./EditTodoDialog";
+import { Checkbox, ListItemIcon, Paper } from "@mui/material";
+import EditTodoDialog from "./../EditTodoDialog";
 
 export default function TodoItem(props) {
   const [openDialog, setOpenDialog] = useState(false);

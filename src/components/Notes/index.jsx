@@ -1,12 +1,10 @@
 import React from "react";
-import PropTypes from "prop-types";
 import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
 import { Container, List, Paper } from "@mui/material";
-import ItemsDone from "./TodoItems";
-import TodoItem from "./TodoItems";
+import TodoItems from "./../TodoItems";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -27,12 +25,6 @@ function TabPanel(props) {
     </div>
   );
 }
-
-TabPanel.propTypes = {
-  children: PropTypes.node,
-  index: PropTypes.number.isRequired,
-  value: PropTypes.number.isRequired,
-};
 
 function a11yProps(index) {
   return {
@@ -77,7 +69,7 @@ export default function BasicTabs(props) {
               <List>
                 {props.todos.map((todo) => (
                   <div key={todo.id} style={{ marginTop: "1em" }}>
-                    <TodoItem
+                    <TodoItems
                       style={todo.color}
                       todo={todo}
                       deleteTodo={props.deleteTodo}
@@ -92,7 +84,7 @@ export default function BasicTabs(props) {
               <List sx={{ marginTop: "1em" }}>
                 {props.todoexcluded.map((todo) => (
                   <div style={{ marginTop: "1em" }}>
-                    <ItemsDone
+                    <TodoItems
                       style={todo.color}
                       deleteTodo={props.deleteTodoDone}
                       editTodo={props.editTodo}
