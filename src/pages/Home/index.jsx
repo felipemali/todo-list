@@ -8,20 +8,15 @@ import Appbar from "../../components/Appbar";
 export default function Home() {
   const [todos, setTodos] = useState([]);
   const [todoexcluded, setTodoexcluded] = useState([]);
-  const [tasks, setTasks] = useState([]);
   const [valueSearch, setValueSearch] = useState("");
 
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
-    setTasks([...tasks, todo]);
   };
 
   const deleteTodo = (id) => {
     const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos);
-
-    const filteredTask = tasks.filter((todo) => todo.id !== id);
-    setTasks(filteredTask);
   };
 
   const deleteTodoDone = (id) => {
@@ -45,22 +40,11 @@ export default function Home() {
     const marketTodos = todos.filter((todo) => todo.id !== obj.id);
     setTodos(marketTodos);
     setTodoexcluded([...todoexcluded, obj]);
-
-    const marketTask = tasks.filter((todo) => todo.id !== obj.id);
-    setTasks(marketTask);
-  };
-
-  const wordFiltered = (e) => {
-    setTodos(e);
-  };
-
-  const valueInputSearch = (e) => {
-    setValueSearch(e);
   };
 
   return (
     <div>
-      <Appbar valueInputSearch={valueInputSearch} />
+      <Appbar valueInputSearch={setValueSearch} />
 
       <h2 style={{ color: "#fff" }}>
         <span
@@ -75,16 +59,12 @@ export default function Home() {
         <MenuBookIcon />
       </h2>
 
-      <Form
-        addTodo={addTodo}
-        todos={todos}
-        tasks={tasks}
-        wordFiltered={wordFiltered}
-        valueSearch={valueSearch}
-      />
+      <Form addTodo={addTodo} todoLength={todos.length} />
 
       <Notes
-        todos={todos}
+        todos={todos.filter((currentTodo) =>
+          currentTodo.text.toLowerCase().includes(valueSearch)
+        )}
         todoexcluded={todoexcluded}
         style={todoexcluded.color}
         deleteTodoDone={deleteTodoDone}

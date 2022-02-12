@@ -5,50 +5,29 @@ import { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
 import "./index.css";
 
+function useKey(key, cb) {
+  const callBackRef = useRef(cb);
+
+  useEffect(() => {
+    callBackRef.current = cb;
+  });
+
+  useEffect(() => {
+    function handle(event) {
+      if (event.code === key) {
+        callBackRef.current(event);
+      }
+    }
+
+    document.addEventListener("keypress", handle);
+    return () => document.removeEventListener("keypress", handle);
+  }, [key]);
+}
+
 export default function Form(props) {
   const [text, setText] = useState();
-  const [id, setId] = useState(0);
-  const [color, setColor] = useState("#efcb67");
-
-  function useKey(key, cb) {
-    const callBackRef = useRef(cb);
-    // na vdd é assim
-    useEffect(() => {
-      callBackRef.current = cb;
-    });
-
-    useEffect(() => {
-      function handle(event) {
-        if (event.code === key) {
-          callBackRef.current(event);
-        }
-      }
-
-      document.addEventListener("keypress", handle);
-      return () => document.removeEventListener("keypress", handle);
-    }, [key]);
-  }
-
-  const todoFiltered = () => {
-    const searchedWord = props.todos.filter((task) =>
-      task.text.toLowerCase().includes(props.valueSearch)
-    );
-
-    if (props.valueSearch) {
-      props.wordFiltered(searchedWord);
-    } else {
-      props.wordFiltered(props.tasks);
-    }
-  };
-  useEffect(() => {
-    todoFiltered();
-  }, [props.valueSearch]);
 
   const todoCreate = () => {
-    const todoObj = { text: text, id: id, color: color };
-    setId(id + 1);
-
-    props.addTodo(todoObj);
     const colors = [
       "#002545",
       "#14808c", //
@@ -65,8 +44,14 @@ export default function Form(props) {
 
     const randomIndex = Math.floor(Math.random() * colors.length);
     const randomColor = colors[randomIndex];
-    setColor(randomColor);
-    document.getElementById("outlined-basic").value = null;
+
+    props.addTodo({
+      text: text,
+      id: props.todoLength + 1,
+      color: randomColor,
+    });
+
+    setText("");
   };
 
   return (
@@ -98,8 +83,7 @@ export default function Form(props) {
             style={{ color: "#1d97c4" }}
             onKeyPress={useKey("Enter", todoCreate)}
             onClick={() => todoCreate(text)}
-          >
-          </Button>
+          ></Button>
         </div>
       </Paper>
     </Container>
