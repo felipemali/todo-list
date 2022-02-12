@@ -3,6 +3,7 @@ import React, { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
 import SendIcon from "@mui/icons-material/Send";
+import "./index.css";
 
 export default function Form(props) {
   const [text, setText] = useState();
@@ -69,44 +70,38 @@ export default function Form(props) {
   };
 
   return (
-    <div>
-      <Container>
-        <Paper
-          style={{
-            border: "5px solid #fff",
-            marginTop: "1em",
-            padding: "0.2em",
-            marginLeft: "0.5em",
-            marginRight: "0.5em",
-          }}
-        >
-          <div
-            style={{
-              display: "flex",
-              justifyContent: "center",
-            }}
-          >
-            <TextField
-              style={{ fontFamily: "cursive", marginRight: "0.1em" }}
-              id="outlined-basic"
-              label=" task..."
-              variant="outlined"
-              fullWidth
-              onChange={(e) => setText(e.target.value)}
-              // onChange={(e) => props.todoOrder(e.target.value)}
-            />
+    <Container className="form">
+      <Paper
+        style={{
+          border: "5px solid #fff",
+          marginTop: "1em",
+          padding: "0.2em",
+          marginLeft: "0.5em",
+          marginRight: "0.5em",
+        }}
+      >
+        <div className="item">
+          <TextField
+            style={{ fontFamily: "cursive", marginRight: "0.1em" }}
+            id="outlined-basic"
+            label=" task..."
+            variant="outlined"
+            fullWidth
+            onChange={(e) => setText(e.target.value)}
+            // onChange={(e) => props.todoOrder(e.target.value)}
+          />
 
-            <Button
-              style={{ border: "1px solid red" }}
-              variant="outline"
-              endIcon={<SendIcon style={{ color: "#004d59" }} />}
-              style={{ color: "#1d97c4" }}
-              onKeyPress={useKey("Enter", todoCreate)}
-              onClick={() => todoCreate(text)}
-            ></Button>
-          </div>
-        </Paper>
-      </Container>
-    </div>
+          <Button
+            className="button"
+            variant="outline"
+            endIcon={<SendIcon style={{ color: "#004d59" }} />}
+            style={{ color: "#1d97c4" }}
+            onKeyPress={useKey("Enter", todoCreate)}
+            onClick={() => todoCreate(text)}
+          >
+          </Button>
+        </div>
+      </Paper>
+    </Container>
   );
 }
