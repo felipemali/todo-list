@@ -73,6 +73,7 @@ export default function Form(props) {
             variant="outlined"
             fullWidth
             onChange={(e) => setText(e.target.value)}
+            value={text}
             // onChange={(e) => props.todoOrder(e.target.value)}
           />
 

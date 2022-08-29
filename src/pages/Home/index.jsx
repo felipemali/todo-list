@@ -42,6 +42,10 @@ export default function Home() {
     setTodoexcluded([...todoexcluded, obj]);
   };
 
+  const todosFiltered = todos.filter((currentTodo) =>
+    currentTodo.text.toLowerCase().includes(valueSearch)
+  );
+
   return (
     <div>
       <Appbar valueInputSearch={setValueSearch} />
@@ -62,9 +66,7 @@ export default function Home() {
       <Form addTodo={addTodo} todoLength={todos.length} />
 
       <Notes
-        todos={todos.filter((currentTodo) =>
-          currentTodo.text.toLowerCase().includes(valueSearch)
-        )}
+        todos={todosFiltered}
         todoexcluded={todoexcluded}
         style={todoexcluded.color}
         deleteTodoDone={deleteTodoDone}
