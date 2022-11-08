@@ -62,7 +62,6 @@ export default function SearchAppBar(props) {
           position="static"
           style={{
             backgroundColor: "#12667d",
-            border: "1px solid red",
           }}
         >
           <Toolbar>
