@@ -6,22 +6,29 @@ import MenuBookIcon from "@mui/icons-material/MenuBook";
 import Appbar from "../../components/Appbar";
 
 export default function Home() {
-  const [todos, setTodos] = useState([]);
-  const [todoexcluded, setTodoexcluded] = useState([]);
+  const [todos, setTodos] = useState(
+    JSON.parse(localStorage.getItem("todo") || "[]")
+  );
+  const [todoexcluded, setTodoexcluded] = useState(
+    JSON.parse(localStorage.getItem("todoExcluded") || "[]")
+  );
   const [valueSearch, setValueSearch] = useState("");
 
   const addTodo = (todo) => {
     setTodos([...todos, todo]);
+    localStorage.setItem("todo", JSON.stringify([...todos, todo]));
   };
 
   const deleteTodo = (id) => {
     const filteredTodos = todos.filter((todo) => todo.id !== id);
     setTodos(filteredTodos);
+    localStorage.setItem("todo", JSON.stringify(filteredTodos));
   };
 
   const deleteTodoDone = (id) => {
     const filtered = todoexcluded.filter((todo) => todo.id !== id);
     setTodoexcluded(filtered);
+    localStorage.setItem("todoExcluded", JSON.stringify(filtered));
   };
 
   const editTodo = (id, newText, color) => {
